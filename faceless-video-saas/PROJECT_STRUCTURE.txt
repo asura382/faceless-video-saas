@@ -1,0 +1,79 @@
+FACELESS VIDEO SAAS - PROJECT STRUCTURE
+========================================
+
+backend/
+├── main.py                    # FastAPI app with all routes
+├── models.py                  # Pydantic models for validation
+├── database.py                # SQLAlchemy database setup
+├── Dockerfile                 # Docker config with FFmpeg
+├── requirements.txt           # Python dependencies
+├── .env.example               # Example environment variables
+├── services/
+│   ├── script_service.py      # HuggingFace AI script generation
+│   ├── tts_service.py         # gTTS text-to-speech
+│   ├── stock_service.py       # Pexels/Pixabay video fetching
+│   └── video_service.py       # FFmpeg video processing
+└── utils/
+    └── subtitle_generator.py  # SRT/ASS subtitle generation
+
+frontend/
+├── app/
+│   ├── layout.tsx             # Root layout
+│   ├── page.tsx               # Main page (create + history)
+│   └── globals.css            # Global styles
+├── components/
+│   ├── VideoPlayer.tsx        # Video player with controls
+│   └── ProgressBar.tsx        # Progress indicator
+├── services/
+│   └── api.ts                 # API client
+├── lib/
+│   └── utils.ts               # Utility functions
+├── package.json               # NPM dependencies
+├── next.config.js             # Next.js config
+├── tailwind.config.ts         # Tailwind config
+├── tsconfig.json              # TypeScript config
+└── .env.local.example         # Example env variables
+
+Root Files:
+├── README.md                  # Project documentation
+├── DEPLOYMENT.md              # Deployment guide
+├── LICENSE                    # MIT License
+├── .gitignore                 # Git ignore rules
+└── PROJECT_STRUCTURE.txt      # This file
+
+API ENDPOINTS:
+--------------
+GET    /health                 - Health check
+POST   /api/videos             - Create new video
+GET    /api/videos             - List all videos
+GET    /api/videos/{id}        - Get video details
+DELETE /api/videos/{id}        - Delete video
+GET    /api/videos/{id}/download - Download MP4
+GET    /media/{filename}       - Serve media files
+
+FREE SERVICES USED:
+-------------------
+1. HuggingFace Inference API - Script generation (~1000 req/day free)
+2. gTTS - Text-to-speech (completely free)
+3. Pexels API - Stock videos (200 req/hour free)
+4. Pixabay API - Stock videos (100 req/min free, fallback)
+5. Render - Hosting (750 hrs/month free)
+6. Vercel - Frontend hosting (100GB bandwidth free)
+7. Render PostgreSQL - Database (1GB free)
+
+VIDEO PIPELINE:
+---------------
+1. User enters topic
+2. AI generates script (HuggingFace)
+3. Script converted to audio (gTTS)
+4. Stock videos fetched (Pexels/Pixabay)
+5. Subtitles generated
+6. FFmpeg renders final video (9:16 format)
+7. User downloads MP4
+
+DEPLOYMENT:
+-----------
+Backend: Render (Docker + PostgreSQL)
+Frontend: Vercel (Next.js static export)
+
+See DEPLOYMENT.md for detailed instructions.
