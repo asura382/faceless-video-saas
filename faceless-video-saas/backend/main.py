@@ -64,10 +64,10 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:5173",  # Vite dev server
         "http://localhost:3000",
         "https://localhost:3000",
-        "https://*.vercel.app",
-        os.getenv("FRONTEND_URL", "")
+        "https://faceless-video-saas-2acn.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
