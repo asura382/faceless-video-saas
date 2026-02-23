@@ -68,7 +68,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+from fastapi.responses import Response
 
+@app.options("/{full_path:path}")
+async def preflight_handler(full_path: str):
+    return Response(status_code=200)
 # Mount media files
 app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 
